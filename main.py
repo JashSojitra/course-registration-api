@@ -20,7 +20,7 @@ REQUIRED_COLUMNS = {
     "title",
     "credits",
     "prerequisites",
-    "cross_listed_courses",
+    "cross_listed",
 }
 
 EMPTY_VALUES = {
@@ -65,7 +65,7 @@ def _header_key(value: str) -> str | None:
         or "crosslisted" in header
         or header in {"equivalent", "equivalents", "equivalentcourses"}
     ):
-        return "cross_listed_courses"
+        return "cross_listed"
     return None
 
 
@@ -170,9 +170,7 @@ def _parse_catalog(html: bytes) -> dict[str, dict[str, Any]]:
                 "title": title,
                 "credits": credits,
                 "prerequisites": _extract_course_codes(values["prerequisites"]),
-                "cross_listed_courses": _extract_course_codes(
-                    values["cross_listed_courses"]
-                ),
+                "cross_listed": _extract_course_codes(values["cross_listed"]),
             }
 
     if not matching_table_found:

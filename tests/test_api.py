@@ -49,7 +49,7 @@ def test_import_then_retrieve_course_with_both_code_forms() -> None:
         "title": "Applied Imaginary Systems",
         "credits": 4.5,
         "prerequisites": ["ZORB 142", "XYLO 100"],
-        "cross_listed_courses": ["PLUM 275B", "WREN 280"],
+        "cross_listed": ["PLUM 275B", "WREN 280"],
     }
 
 
@@ -73,7 +73,7 @@ def test_professor_sample_imports_with_required_response_schema() -> None:
         "title": "Software Systems Development",
         "credits": 3,
         "prerequisites": ["COSC 2007"],
-        "cross_listed_courses": ["ITEC 3506"],
+        "cross_listed": ["ITEC 3506"],
     }
 
 
@@ -100,7 +100,7 @@ def test_empty_markers_become_empty_arrays() -> None:
 
     assert response.status_code == 200
     assert response.json()["prerequisites"] == []
-    assert response.json()["cross_listed_courses"] == []
+    assert response.json()["cross_listed"] == []
 
 
 def test_unknown_course_returns_404() -> None:
