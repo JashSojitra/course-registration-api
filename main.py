@@ -229,3 +229,7 @@ def get_course(course_code: str) -> dict[str, Any]:
             detail=f"Course '{course_code}' was not found.",
         )
     return course
+
+# COSC 3506 Individual Assignment Phase 2
+from student_api import router as student_router
+app.include_router(student_router)
