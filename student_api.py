@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import re
-from typing import Literal
 
 from bs4 import BeautifulSoup
 from fastapi import APIRouter, File, HTTPException, UploadFile
@@ -131,3 +130,15 @@ def clear_plan(student_id: str):
 def get_profile(student_id: str):
     record = _student(student_id)
     return {"student_id": student_id, "history": record["history"], "plan": record["plan"]}
+
+
+@router.get("/audit-report")
+def get_audit_report(student_id: str, strict: bool = False):
+    from audit import build_audit
+    from main import catalog
+
+    record = _student(student_id)
+    try:
+        return build_audit(student_id, record, catalog, strict)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
